@@ -31,6 +31,14 @@ class FileStorage:
         with open(self.__file_path, "w") as fp:
             json.dump(self.__objects, fp)
 
+    def delete(self, obj=None):
+        if obj == None:
+            return None
+        id = f"{type(obj).__name__}.{obj.id}"
+        if self.__objects.get(id) is not None:
+            self.__class__.__objects.pop(id)
+            self.save()
+
     def reload(self):
         """
         This method deserializes from the file __file_path if
@@ -38,4 +46,4 @@ class FileStorage:
         """
         if os.path.exists(self.__file_path):
             with open(self.__file_path) as fp:
-                self.__objects = json.load(fp)
+                self.__class__.__objects = json.load(fp)
