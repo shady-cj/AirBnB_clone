@@ -6,6 +6,7 @@ provides a command prompt to interact with
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -21,12 +22,23 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def parseargs(self, line):
+        """Parses the line args"""
+        commands = re.findall(r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')', line)
+        print(commands)
+        stripped_commands = []
+        for cmd in commands:
+            stripped_commands.append(cmd.strip().strip("'").strip('"'))
+        print(stripped_commands)
+        return stripped_commands
+
     def do_create(self, cls):
         """Creates a new instance of BaseModel class\n\
 Usage: create <class_name>\n"""
         if not cls:
             print("** class name missing **")
         else:
+            cls = self.parseargs(cls)[0]
             if cls not in self.__models:
                 print("** class doesn't exist **")
             else:
@@ -37,6 +49,7 @@ Usage: create <class_name>\n"""
     def do_show(self, line):
         """prints the string representation of an instance\
 based on the class name and id\nUsage: show <class_name> <id>\n"""
+        line = self.parseargs(line)
         ret = self.__class__.verify_rud_command(line)
         if ret:
             print(ret)
@@ -44,6 +57,7 @@ based on the class name and id\nUsage: show <class_name> <id>\n"""
     def do_destroy(self, line):
         """prints the string representation of an instance\
 based on the class name and id\nUsage: destroy <class_name> <id>\n"""
+        line = self.parseargs(line)
         ret = self.__class__.verify_rud_command(line)
         if ret:
             storage.delete(ret)
@@ -71,9 +85,10 @@ based on/not based on the model name\nUsage: all <class_name>\
         """updates an instance basex on the class name and id\
 by adding or updating attributes\nUsage: update <class_name> \
 <id> <attribute name> "<attribute value>"\n"""
+        line = self.parseargs(line)
         ret = self.__class__.verify_rud_command(line)
         if ret:
-            cmd = line.split(" ")
+            cmd = line
             if len(cmd) < 3:
                 print("** attribute name missing **")
             elif len(cmd) < 4:
@@ -92,17 +107,16 @@ by adding or updating attributes\nUsage: update <class_name> \
         update, and destroy (rud) commands and returns
         the id for printing
         """
-        split_line = cmd.split(" ")
-        model_name = split_line[0].strip()
-        if not model_name:
+        if len(cmd) < 1:
             print("** class name missing **")
         else:
+            model_name = cmd[0]
             if model_name not in cls.__models:
                 print("** class doesn't exist **")
-            elif len(split_line) < 2:
+            elif len(cmd) < 2:
                 print("** instance id missing **")
             else:
-                id = split_line[1].strip()
+                id = cmd[1]
                 id = f"{model_name}.{id}"
                 return (cls.find_id(id))
         return None
