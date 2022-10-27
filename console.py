@@ -7,12 +7,19 @@ import cmd
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
+from models.amenity import Amenity
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.review import Review
 import re
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
-    __models = ("BaseModel", "User")
+    __models = ("BaseModel", "User", "Amenity",
+                "State", "City", "Place", "Review"
+                )
 
     def do_quit(self, line):
         """Quit command to exit the program\n"""
@@ -25,7 +32,8 @@ class HBNBCommand(cmd.Cmd):
 
     def parseargs(self, line):
         """Parses the line args"""
-        commands = re.findall(r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')', line)
+        pattern = r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')'
+        commands = re.findall(pattern, line)
         stripped_commands = []
         for cmd in commands:
             stripped_commands.append(cmd.strip().strip("'").strip('"'))
@@ -44,7 +52,7 @@ Usage: create <class_name>\n"""
                 b = eval(cls)()
                 b.save()
                 print(b.id)
-    
+
     def do_show(self, line):
         """prints the string representation of an instance\
 based on the class name and id\nUsage: show <class_name> <id>\n"""

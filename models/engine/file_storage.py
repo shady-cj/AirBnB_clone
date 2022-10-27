@@ -32,7 +32,7 @@ class FileStorage:
             json.dump(self.__objects, fp)
 
     def delete(self, obj=None):
-        if obj == None:
+        if obj is None:
             return None
         id = f"{type(obj).__name__}.{obj.id}"
         if self.__objects.get(id) is not None:
