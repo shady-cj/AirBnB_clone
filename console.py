@@ -5,13 +5,14 @@ provides a command prompt to interact with
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import re
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
-    __models = ("BaseModel",)
+    __models = ("BaseModel", "User")
 
     def do_quit(self, line):
         """Quit command to exit the program\n"""
@@ -25,15 +26,13 @@ class HBNBCommand(cmd.Cmd):
     def parseargs(self, line):
         """Parses the line args"""
         commands = re.findall(r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')', line)
-        print(commands)
         stripped_commands = []
         for cmd in commands:
             stripped_commands.append(cmd.strip().strip("'").strip('"'))
-        print(stripped_commands)
         return stripped_commands
 
     def do_create(self, cls):
-        """Creates a new instance of BaseModel class\n\
+        """Creates a new instance of <cls> class\n\
 Usage: create <class_name>\n"""
         if not cls:
             print("** class name missing **")
@@ -42,7 +41,7 @@ Usage: create <class_name>\n"""
             if cls not in self.__models:
                 print("** class doesn't exist **")
             else:
-                b = BaseModel()
+                b = eval(cls)()
                 b.save()
                 print(b.id)
     
@@ -118,18 +117,18 @@ by adding or updating attributes\nUsage: update <class_name> \
             else:
                 id = cmd[1]
                 id = f"{model_name}.{id}"
-                return (cls.find_id(id))
+                return (cls.find_id(id, model_name))
         return None
 
     @staticmethod
-    def find_id(id):
+    def find_id(id, class_name):
         """
         A staticmethod that helps fetches the id for any
         retrieve, update, destroy operations
         """
         for key in storage.all().keys():
             if id == key:
-                b = BaseModel(**storage.all()[key])
+                b = eval(class_name)(**storage.all()[key])
                 return (b)
         print("** no instance found **")
         return None
