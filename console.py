@@ -141,9 +141,48 @@ by adding or updating attributes\nUsage: update <class_name> \
         print("** no instance found **")
         return None
 
+    def update_dict(self, cl_name, id, obj_dict):
+        """Update using a dictionary object"""
+        for k, v in obj_dict.items():
+            construct = f"{cl_name} {id} {k} {v}"
+            self.do_update(construct)
     def emptyline(self):
         """Handles emptyline commands\n"""
         print(end="")
+
+    def default(self, line):
+        """Method to catch unknown commands"""
+        pattern = re.findall(r"^(\w+)\.(\w+)(\((.*)\))$", line)
+        if not len(pattern):
+            return cmd.Cmd.default(self, line)
+        class_name, operation, _, args = pattern[0]
+        method_str = f"self.do_{operation}"
+        if operation == "count":
+            count = 0
+            for key in storage.all().keys():
+                if key.startswith(class_name):
+                    count += 1
+            print(count)
+        else:
+            option = class_name
+            if args:
+                if len(args.split(",")) == 2 and operation == "update":
+                    split_string = args.split(",")
+                    print(split_string)
+                    id_arg = split_string[0].strip()
+                    dict_arg = split_string[1].strip()
+                    try:
+                        dict_arg = eval(dict_arg)
+                        if type(dict_arg) == dict:
+                            self.update_dict(class_name, id_arg, dict_arg)
+                            return None
+                    except:
+                        pass
+                option += " "
+                option += " ".join([w.strip() for w in args.split(",")])
+            option.strip()
+            method = eval(method_str)
+            method(option)
 
 
 if __name__ == "__main__":
