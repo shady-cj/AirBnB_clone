@@ -146,6 +146,7 @@ by adding or updating attributes\nUsage: update <class_name> \
         for k, v in obj_dict.items():
             construct = f"{cl_name} {id} {k} {v}"
             self.do_update(construct)
+
     def emptyline(self):
         """Handles emptyline commands\n"""
         print(end="")
@@ -166,18 +167,18 @@ by adding or updating attributes\nUsage: update <class_name> \
         else:
             option = class_name
             if args:
-                if len(args.split(",")) == 2 and operation == "update":
-                    split_string = args.split(",")
-                    print(split_string)
-                    id_arg = split_string[0].strip()
-                    dict_arg = split_string[1].strip()
+                p_split = r"^([\w\W]+),\s*(\{[\w\W]+\})\s*$"
+                split_args = re.findall(p_split, args)
+                if split_args and operation == "update":
+                    id_arg = split_args[0][0]
+                    dict_arg = split_args[0][1]
                     try:
                         dict_arg = eval(dict_arg)
                         if type(dict_arg) == dict:
                             self.update_dict(class_name, id_arg, dict_arg)
-                            return None
-                    except:
-                        pass
+                    except Exception as e:
+                        print(e)
+                    return None
                 option += " "
                 option += " ".join([w.strip() for w in args.split(",")])
             option.strip()
