@@ -32,7 +32,10 @@ class HBNBCommand(cmd.Cmd):
 
     def parseargs(self, line):
         """Parses the line args"""
-        pattern = r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')'
+        # pattern = r'[\w-]+|(?:\"(?:\w+\W?\w*)+\")|(?:\'(?:\w+\W?\w*)+\')'
+        pattern = r'(?:\b[\w-]+\'?\"?[\w-]+)|(?:\"(?:\w+\W?\w*)+\")'
+        last_part = r'|(?:\'(?:\w+\W?\w*)+\')'
+        pattern += last_part
         commands = re.findall(pattern, line)
         stripped_commands = []
         for cmd in commands:
