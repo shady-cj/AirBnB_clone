@@ -78,3 +78,48 @@ class TestBaseModelBasic(unittest.TestCase):
         self.assertEqual(b1_dict, self.b1.to_dict())
         self.assertEqual(b2_dict, self.b2.to_dict())
 
+
+class TestBaseModelCreation(unittest.TestCase):
+    """
+    This Testcase tests the BaseModel class for the
+    creation of new instances from a dictionary
+    """
+    def setUp(self):
+        self.b1 = BaseModel()
+        self.b2 = BaseModel()
+
+    def test_creation_with_dict(self):
+        """
+        This creates a new BaseModel instance from a valid dict
+        """
+        new_b1 = BaseModel(**self.b1.to_dict())
+        new_b2 = BaseModel(**self.b2.to_dict())
+        self.assertNotEqual(new_b1, self.b1)
+        self.assertNotEqual(new_b2, self.b2)
+        self.assertEqual(self.b2.id, new_b2.id)
+        self.assertEqual(self.b1.id, new_b1.id)
+        self.assertEqual(self.b1.created_at, new_b1.created_at)
+        self.assertEqual(self.b2.created_at, new_b2.created_at)
+        self.assertEqual(self.b1.updated_at, new_b1.updated_at)
+        self.assertEqual(self.b2.updated_at, new_b2.updated_at) 
+
+    def test_creation_with_empty_dict(self):
+        """
+        Testing if the dict to create the instance with is empty
+        """
+        new_b1 = BaseModel(**{})
+        self.assertNotEqual(new_b1.__dict__, 0)
+        self.assertIsNotNone(getattr(new_b1, "id", None))
+
+    def test_creation_with_invalid_dict(self):
+        """
+        Testing the instance with invalid dict
+        """
+        new_b1 = BaseModel(self.b1)
+
+        self.assertNotEqual(new_b1.__dict__, 0)
+        self.assertIsNotNone(getattr(new_b1, "id", None))
+
+        with self.assertRaises(TypeError):
+                BaseModel(**self.b1)
+
