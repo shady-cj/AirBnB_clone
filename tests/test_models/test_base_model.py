@@ -7,7 +7,9 @@ from models.base_model import BaseModel
 import uuid
 import datetime
 import time
-
+from models.engine.file_storage import FileStorage
+import os
+import json
 
 class TestBaseModelBasic(unittest.TestCase):
     """ Testing for basic attributes and methods on
@@ -123,3 +125,36 @@ class TestBaseModelCreation(unittest.TestCase):
         with self.assertRaises(TypeError):
                 BaseModel(**self.b1)
 
+
+class TestBaseModelFileStorage(unittest.TestCase):
+    """
+    Testing storage of instances using local files
+    """
+    def setUp(self):
+        self.storage = FileStorage()
+        self.storage.reload()
+
+
+    @classmethod
+    def setUpClass(cls):
+        cls.b = BaseModel()
+
+    def test_file_save_after_instance_creation(self):
+        """
+        Test if the data is stored somewhere after instantiating
+        a model class
+        """
+        new_b = BaseModel(**self.b.to_dict())
+        self.storage.new(new_b)
+        self.assertIsInstance(self.storage.all(), dict)
+        self.assertEqual(self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+        new_b.save()
+
+    def test_instance_data_persistence_after_save(self):
+        """Test if there is data persistence after saving"""
+        self.assertTrue(self.storage.all()[f"BaseModel.{self.b.id}"]["id"])
+        self.assertEqual(self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+        self.assertTrue(os.path.exists("file.json"))
+        with open("file.json") as f:
+            reader = json.load(f)
+            self.assertIsNotNone(reader.get(f"BaseModel.{self.b.id}"))
