@@ -11,6 +11,7 @@ from models.engine.file_storage import FileStorage
 import os
 import json
 
+
 class TestBaseModelBasic(unittest.TestCase):
     """ Testing for basic attributes and methods on
     BaseModel instantiation
@@ -18,7 +19,7 @@ class TestBaseModelBasic(unittest.TestCase):
     def setUp(self):
         self.b1 = BaseModel()
         self.b2 = BaseModel()
-    
+
     def test_id(self):
         """ Testing if id was assigned to each Instance
         and it's a uuid generated id
@@ -45,7 +46,6 @@ class TestBaseModelBasic(unittest.TestCase):
 ({self.b1.id}) {self.b1.__dict__}"
         expected_rep_b2 = f"[{self.b2.__class__.__name__}] \
 ({self.b2.id}) {self.b2.__dict__}"
-        
         self.assertEqual(str(self.b1), expected_rep_b1)
         self.assertEqual(str(self.b2), expected_rep_b2)
 
@@ -60,14 +60,12 @@ class TestBaseModelBasic(unittest.TestCase):
         self.assertEqual(self.b1.updated_at.second, n.second)
         self.assertEqual(self.b1.updated_at.minute, n.minute)
 
-
     def test_to_dict(self):
         """
         Test on the to_dict() method
         """
         b1_dict = dict(self.b1.__dict__)
         b2_dict = dict(self.b2.__dict__)
-        
         self.assertNotEqual(b1_dict, self.b1.to_dict())
         self.assertNotEqual(b2_dict, self.b2.to_dict())
 
@@ -103,7 +101,7 @@ class TestBaseModelCreation(unittest.TestCase):
         self.assertEqual(self.b1.created_at, new_b1.created_at)
         self.assertEqual(self.b2.created_at, new_b2.created_at)
         self.assertEqual(self.b1.updated_at, new_b1.updated_at)
-        self.assertEqual(self.b2.updated_at, new_b2.updated_at) 
+        self.assertEqual(self.b2.updated_at, new_b2.updated_at)
 
     def test_creation_with_empty_dict(self):
         """
@@ -123,7 +121,7 @@ class TestBaseModelCreation(unittest.TestCase):
         self.assertIsNotNone(getattr(new_b1, "id", None))
 
         with self.assertRaises(TypeError):
-                BaseModel(**self.b1)
+            BaseModel(**self.b1)
 
 
 class TestBaseModelFileStorage(unittest.TestCase):
@@ -133,7 +131,6 @@ class TestBaseModelFileStorage(unittest.TestCase):
     def setUp(self):
         self.storage = FileStorage()
         self.storage.reload()
-
 
     @classmethod
     def setUpClass(cls):
@@ -147,13 +144,15 @@ class TestBaseModelFileStorage(unittest.TestCase):
         new_b = BaseModel(**self.b.to_dict())
         self.storage.new(new_b)
         self.assertIsInstance(self.storage.all(), dict)
-        self.assertEqual(self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+        self.assertEqual(
+            self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
         new_b.save()
 
     def test_instance_data_persistence_after_save(self):
         """Test if there is data persistence after saving"""
         self.assertTrue(self.storage.all()[f"BaseModel.{self.b.id}"]["id"])
-        self.assertEqual(self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+        self.assertEqual(
+            self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
         self.assertTrue(os.path.exists("file.json"))
         with open("file.json") as f:
             reader = json.load(f)
