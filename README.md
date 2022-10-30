@@ -1,4 +1,5 @@
 ![coverage](coverage-badge.svg) ![Tests number](tests-badge.svg)
+AirBnB Clone License: MIT Build Status
 
 ![enter image description here](https://i.imgur.com/44u0pXG.png)
                  Welcome to the AirBnB clone project! - The Console 
