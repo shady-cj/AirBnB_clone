@@ -3,6 +3,7 @@
 This module write testcases for file_storage.py
 """
 from models.engine.file_storage import FileStorage
+from models.engine.deserializer import to_model
 from models.state import State
 from models.user import User
 import os
@@ -49,6 +50,9 @@ class TestFileStorage(unittest.TestCase):
         self.user1.save()
         self.state1.save()
         with open("file.json") as f:
-            obj = json.load(f)
+            obj = json.load(f, object_hook=to_model)
             self.assertIsNotNone(obj.get(f"User.{self.user1.id}"))
             self.assertIsNotNone(obj.get(f"State.{self.state1.id}"))
+            storage = FileStorage()
+            storage.reload()
+            self.assertEqual(storage.all(), obj)
