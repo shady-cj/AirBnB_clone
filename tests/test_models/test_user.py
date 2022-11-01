@@ -3,6 +3,7 @@
 This module writes tests for User model
 """
 from models.user import User
+from models.engine.file_storage import FileStorage
 import unittest
 
 
@@ -31,3 +32,18 @@ class TestUser(unittest.TestCase):
         self.assertNotEqual(user, new_user)
         self.assertEqual(user.id, new_user.id)
         self.assertEqual(user.password, new_user.password)
+
+    def test_user_storage(self):
+        """ Test User Storage """
+        u = User()
+        storage = FileStorage()
+        get_obj = storage.all().get(f"User.{u.id}")
+        self.assertIsNotNone(get_obj)
+        self.assertEqual(get_obj.id, u.id)
+        u.save()
+        s2 = FileStorage()
+        s2.reload()
+        s2 = s2.all()
+        self.assertIsNotNone(s2.get(f"User.{u.id}"))
+        self.assertIsInstance(s2.get(f"User.{u.id}"), User)
+        self.assertEqual(s2.get(f"User.{u.id}").created_at, u.created_at)
