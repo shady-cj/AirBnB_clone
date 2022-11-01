@@ -13,6 +13,8 @@ class TestUser(unittest.TestCase):
         user = User()
         self.assertEqual(user.first_name, "")
         self.assertEqual(user.email, "")
+        self.assertEqual(user.password, "")
+        self.assertEqual(user.last_name, "")
         User.first_name = "John"
         User.last_name = "Doe"
         User.password = "123"
