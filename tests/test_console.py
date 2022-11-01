@@ -506,3 +506,209 @@ class TestShowCommand(unittest.TestCase):
             self.assertIsNotNone(rv)
             b = Review(**rv)
             self.assertEqual(str(b), value)
+
+
+class TestDestroyCommand(unittest.TestCase):
+    def test_destroy_without_id(self):
+        """ test show command without id """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel")
+            value = f.getvalue().strip("\n")
+            output = "** instance id missing **"
+            self.assertEqual(value, output)
+
+    def test_destroy_base_model_plain(self):
+        """ test destroy command on BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy BaseModel {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            bm = obj.get(f"BaseModel.{base_id}")
+            self.assertIsNone(bm)
+            self.assertEqual(value, '')
+    
+    def test_destroy_user_plain(self):
+        """ test destroy command on User """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy User {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            u = obj.get(f"User.{base_id}")
+            self.assertIsNone(u)
+            self.assertEqual( value, '')
+
+    def test_destroy_state_plain(self):
+        """ test destroy command on State """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy State {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            st = obj.get(f"State.{base_id}")
+            self.assertIsNone(st)
+            self.assertEqual(value, '')
+
+    def test_destroy_city__plain(self):
+        """ test destroy command on City """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create City")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy City {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            ct = obj.get(f"City.{base_id}")
+            self.assertIsNone(ct)
+            self.assertEqual(value, '')
+
+    def test_destroy_amenity_plain(self):
+        """ test destroy command on Amenity """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Amenity")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy Amenity {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            am = obj.get(f"Amenity.{base_id}")
+            self.assertIsNone(am)
+            self.assertEqual(value, '')
+
+    def test_destroy_place_plain(self):
+        """ test destroy command on Place """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Place")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy Place {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            pl = obj.get(f"Place.{base_id}")
+            self.assertIsNone(pl)
+            self.assertEqual(value, '')
+
+    def test_destroy_review_plain(self):
+        """ test destroy command on Review """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Review")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy Review {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            rv = obj.get(f"Review.{base_id}")
+            self.assertIsNone(rv)
+            self.assertEqual(value, '')
+
+    def test_destroy_base_model(self):
+        """ test destroy command on BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            bm = obj.get(f"BaseModel.{base_id}")
+            self.assertIsNone(bm)
+            self.assertEqual(value, '')
+    
+    def test_destroy_user(self):
+        """ test destroy command on User """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            u = obj.get(f"User.{base_id}")
+            self.assertIsNone(u)
+            self.assertEqual(value, '')
+
+    def test_destroy_state(self):
+        """ test destroy command on State """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            st = obj.get(f"State.{base_id}")
+            self.assertIsNone(st)
+            self.assertEqual(value, '')
+
+    def test_destroy_city(self):
+        """ test destroy command on City """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create City")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            ct = obj.get(f"City.{base_id}")
+            self.assertIsNone(ct)
+            self.assertEqual(value, '')
+
+    def test_destroy_amenity(self):
+        """ test destroy command on Amenity """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Amenity")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            am = obj.get(f"Amenity.{base_id}")
+            self.assertIsNone(am)
+            self.assertEqual(value, '')
+
+    def test_destroy_place(self):
+        """ test destroy command on Place """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Place")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            pl = obj.get(f"Place.{base_id}")
+            self.assertIsNone(pl)
+            self.assertEqual(value, '')
+
+    def test_destroy_review(self):
+        """ test destroy command on Review """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Review")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.destroy({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            rv = obj.get(f"Review.{base_id}")
+            self.assertIsNone(rv)
+            self.assertEqual(value, '')
