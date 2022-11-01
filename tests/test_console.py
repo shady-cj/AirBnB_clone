@@ -2,6 +2,13 @@
 """
 Testcases for console.py cmd prompt
 """
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.review import Review
 from console import HBNBCommand
 import unittest
 from unittest.mock import patch
@@ -279,3 +286,223 @@ class TestAllCommand(unittest.TestCase):
                     if k.startswith("State"):
                         count += 1
                 self.assertEqual(count, len(value))
+
+
+class TestShowCommand(unittest.TestCase):
+    def test_show_without_id(self):
+        """ test show command without id """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel")
+            value = f.getvalue().strip("\n")
+            output = "** instance id missing **"
+            self.assertEqual(value, output)
+
+    def test_show_base_model_plain(self):
+        """ test show command on BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show BaseModel {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            bm = obj.get(f"BaseModel.{base_id}")
+            self.assertIsNotNone(bm)
+            b = BaseModel(**bm)
+            self.assertEqual(str(b), value)
+    
+    def test_show_user_plain(self):
+        """ test show command on User """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show User {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            u = obj.get(f"User.{base_id}")
+            self.assertIsNotNone(u)
+            b = User(**u)
+            self.assertEqual(str(b), value)
+
+    def test_show_state_plain(self):
+        """ test show command on State """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show State {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            st = obj.get(f"State.{base_id}")
+            self.assertIsNotNone(st)
+            b = State(**st)
+            self.assertEqual(str(b), value)
+
+    def test_show_city__plain(self):
+        """ test show command on City """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create City")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show City {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            ct = obj.get(f"City.{base_id}")
+            self.assertIsNotNone(ct)
+            b = City(**ct)
+            self.assertEqual(str(b), value)
+
+    def test_show_amenity_plain(self):
+        """ test show command on Amenity """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Amenity")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show Amenity {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            am = obj.get(f"Amenity.{base_id}")
+            self.assertIsNotNone(am)
+            b = Amenity(**am)
+            self.assertEqual(str(b), value)
+
+    def test_show_place_plain(self):
+        """ test show command on Place """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Place")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show Place {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            pl = obj.get(f"Place.{base_id}")
+            self.assertIsNotNone(pl)
+            b = Place(**pl)
+            self.assertEqual(str(b), value)
+
+    def test_show_review_plain(self):
+        """ test show command on Review """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Review")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show Review {base_id}")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            rv = obj.get(f"Review.{base_id}")
+            self.assertIsNotNone(rv)
+            b = Review(**rv)
+            self.assertEqual(str(b), value)
+
+    def test_show_base_model(self):
+        """ test show command on BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            bm = obj.get(f"BaseModel.{base_id}")
+            self.assertIsNotNone(bm)
+            b = BaseModel(**bm)
+            self.assertEqual(str(b), value)
+    
+    def test_show_user(self):
+        """ test show command on User """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            u = obj.get(f"User.{base_id}")
+            self.assertIsNotNone(u)
+            b = User(**u)
+            self.assertEqual(str(b), value)
+
+    def test_show_state(self):
+        """ test show command on State """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            st = obj.get(f"State.{base_id}")
+            self.assertIsNotNone(st)
+            b = State(**st)
+            self.assertEqual(str(b), value)
+
+    def test_show_city(self):
+        """ test show command on City """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create City")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            ct = obj.get(f"City.{base_id}")
+            self.assertIsNotNone(ct)
+            b = City(**ct)
+            self.assertEqual(str(b), value)
+
+    def test_show_amenity(self):
+        """ test show command on Amenity """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Amenity")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            am = obj.get(f"Amenity.{base_id}")
+            self.assertIsNotNone(am)
+            b = Amenity(**am)
+            self.assertEqual(str(b), value)
+
+    def test_show_place(self):
+        """ test show command on Place """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Place")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            pl = obj.get(f"Place.{base_id}")
+            self.assertIsNotNone(pl)
+            b = Place(**pl)
+            self.assertEqual(str(b), value)
+
+    def test_show_review(self):
+        """ test show command on Review """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Review")
+            base_id = f.getvalue().strip("\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.show({base_id})")
+            value = f.getvalue().strip("\n")
+        with open("file.json") as fp:
+            obj = json.load(fp)
+            rv = obj.get(f"Review.{base_id}")
+            self.assertIsNotNone(rv)
+            b = Review(**rv)
+            self.assertEqual(str(b), value)
