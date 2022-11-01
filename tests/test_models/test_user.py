@@ -13,10 +13,12 @@ class TestUser(unittest.TestCase):
         user = User()
         self.assertEqual(user.first_name, "")
         self.assertEqual(user.email, "")
-        user.first_name = "John"
-        user.last_name = "Doe"
+        User.first_name = "John"
+        User.last_name = "Doe"
+        User.password = "123"
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Doe")
+        self.assertEqual(user.password, "123")
         self.assertIsInstance(user.id, str)
 
     def test_user_dict_to_instance(self):
