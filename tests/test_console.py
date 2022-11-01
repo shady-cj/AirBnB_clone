@@ -13,6 +13,7 @@ from console import HBNBCommand
 import unittest
 from unittest.mock import patch
 from io import StringIO
+import os
 import sys
 import json
 
@@ -87,6 +88,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 self.assertEqual(len(r), len(value))
@@ -97,6 +102,9 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all BaseModel")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -111,6 +119,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all User")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -125,6 +137,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all Place")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -139,6 +155,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all City")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+ 
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -153,6 +173,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all Amenity")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -167,6 +191,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all Review")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -181,6 +209,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("all State")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -195,6 +227,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("BaseModel.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -209,6 +245,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("User.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -223,6 +263,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("Place.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -237,6 +281,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("City.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -251,6 +299,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("Amenity.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -265,6 +317,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("Review.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -279,6 +335,10 @@ class TestAllCommand(unittest.TestCase):
             HBNBCommand().onecmd("State.all()")
             value = eval(f.getvalue().strip("\n"))
             self.assertIsInstance(value, list)
+            if not os.path.exists("file.json"):
+                self.assertEqual(value, [])
+                return None
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -712,3 +772,117 @@ class TestDestroyCommand(unittest.TestCase):
             rv = obj.get(f"Review.{base_id}")
             self.assertIsNone(rv)
             self.assertEqual(value, '')
+
+
+class TestCountCommand(unittest.TestCase):
+    def test_count_base_model(self):
+        """test count command on base model"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("BaseModel"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_review(self):
+        """test count command on review"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Review.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("Review"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_user(self):
+        """test count command on User"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("User.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("User"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_state(self):
+        """test count command on state"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("State.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("State"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_city(self):
+        """test count command on city"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("City"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_amenity(self):
+        """test count command on amenity"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("Amenity"):
+                    count += 1
+            self.assertEqual(count, value)
+
+    def test_count_place(self):
+        """test count command on place"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.count()")
+            value = int(f.getvalue().strip("\n"))
+        if not os.path.exists("file.json"):
+            self.assertEqual(value, 0)
+            return None
+        with open("file.json") as fp:
+            reader = json.load(fp)
+            count = 0
+            for k in reader.keys():
+                if k.startswith("Place"):
+                    count += 1
+            self.assertEqual(count, value)
