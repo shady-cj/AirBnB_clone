@@ -5,6 +5,7 @@ anf deserializes instances from/to json file
 """
 import json
 import os
+from .deserializer import to_model
 
 
 class FileStorage:
@@ -22,14 +23,15 @@ class FileStorage:
         """ Sets the new obj in the __objects store
         """
         obj_key = f"{type(obj).__name__}.{obj.id}"
-        self.__class__.__objects[obj_key] = obj.to_dict()
+        self.__class__.__objects[obj_key] = obj
 
     def save(self):
         """
         This serializes __objects into file <__file_path>
         """
         with open(self.__file_path, "w") as fp:
-            json.dump(self.__objects, fp)
+            json.dump(self.__objects, fp,
+                      default=lambda obj: obj.to_dict())
 
     def delete(self, obj=None):
         if obj is None:
@@ -46,4 +48,4 @@ class FileStorage:
         """
         if os.path.exists(self.__file_path):
             with open(self.__file_path) as fp:
-                self.__class__.__objects = json.load(fp)
+                self.__class__.__objects = json.load(fp, object_hook=to_model)

@@ -145,14 +145,14 @@ class TestBaseModelFileStorage(unittest.TestCase):
         self.storage.new(new_b)
         self.assertIsInstance(self.storage.all(), dict)
         self.assertEqual(
-            self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+            self.storage.all()[f"BaseModel.{self.b.id}"].id, self.b.id)
         new_b.save()
 
     def test_instance_data_persistence_after_save(self):
         """Test if there is data persistence after saving"""
-        self.assertTrue(self.storage.all()[f"BaseModel.{self.b.id}"]["id"])
+        self.assertTrue(self.storage.all()[f"BaseModel.{self.b.id}"].id)
         self.assertEqual(
-            self.storage.all()[f"BaseModel.{self.b.id}"]["id"], self.b.id)
+            self.storage.all()[f"BaseModel.{self.b.id}"].id, self.b.id)
         self.assertTrue(os.path.exists("file.json"))
         with open("file.json") as f:
             reader = json.load(f)

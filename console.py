@@ -6,12 +6,12 @@ provides a command prompt to interact with
 import cmd
 from models.base_model import BaseModel
 from models.user import User
-from models import storage
 from models.amenity import Amenity
 from models.state import State
 from models.city import City
 from models.place import Place
 from models.review import Review
+from models import storage
 import re
 
 
@@ -83,13 +83,14 @@ based on/not based on the model name\nUsage: all <class_name>\
             else:
                 print("** class doesn't exist **")
                 return None
+        objs = []
         for key in storage.all().keys():
             if filter_by:
                 if not key.startswith(filter_by):
                     continue
-            class_name = storage.all()[key]["__class__"]
-            obj = eval(class_name)(**storage.all()[key])
-            print(obj)
+            class_obj = storage.all()[key]
+            objs.append(str(class_obj))
+        print(objs)
 
     def do_update(self, line):
         """updates an instance basex on the class name and id\
@@ -139,8 +140,7 @@ by adding or updating attributes\nUsage: update <class_name> \
         """
         for key in storage.all().keys():
             if id == key:
-                b = eval(class_name)(**storage.all()[key])
-                return (b)
+                return (storage.all()[key])
         print("** no instance found **")
         return None
 
