@@ -39,11 +39,11 @@ class TestConsoleBasicCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help")
             output = "\n".join([
-            "",
-            "Documented commands (type help <topic>):",
-            "========================================",
-            "EOF  all  create  destroy  help  quit  show  update",
-            "\n"
+                "",
+                "Documented commands (type help <topic>):",
+                "========================================",
+                "EOF  all  create  destroy  help  quit  show  update",
+                "\n"
             ])
             self.assertEqual(f.getvalue(), output)
 
@@ -67,7 +67,9 @@ class TestCreateCommand(unittest.TestCase):
                 reader = json.load(fp)
                 self.assertIsNotNone(reader.get(f"BaseModel.{value}"))
                 self.assertIsNotNone(
-                        reader.get(f"BaseModel.{value}")["__class__"] == "BaseModel")
+                        reader.get(
+                            f"BaseModel.{value}")["__class__"] == "BaseModel")
+
     def test_user(self):
         """Test create on basemodel"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -78,7 +80,8 @@ class TestCreateCommand(unittest.TestCase):
                 reader = json.load(fp)
                 self.assertIsNotNone(reader.get(f"User.{value}"))
                 self.assertIsNotNone(
-                        reader.get(f"User.{value}")["__class__"] == "BaseModel")
+                        reader.get(
+                            f"User.{value}")["__class__"] == "BaseModel")
 
 
 class TestAllCommand(unittest.TestCase):
@@ -158,7 +161,7 @@ class TestAllCommand(unittest.TestCase):
             if not os.path.exists("file.json"):
                 self.assertEqual(value, [])
                 return None
- 
+
             with open("file.json") as fp:
                 r = json.load(fp)
                 count = 0
@@ -371,7 +374,7 @@ class TestShowCommand(unittest.TestCase):
             self.assertIsNotNone(bm)
             b = BaseModel(**bm)
             self.assertEqual(str(b), value)
-    
+
     def test_show_user_plain(self):
         """ test show command on User """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -476,7 +479,7 @@ class TestShowCommand(unittest.TestCase):
             self.assertIsNotNone(bm)
             b = BaseModel(**bm)
             self.assertEqual(str(b), value)
-    
+
     def test_show_user(self):
         """ test show command on User """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -590,7 +593,7 @@ class TestDestroyCommand(unittest.TestCase):
             bm = obj.get(f"BaseModel.{base_id}")
             self.assertIsNone(bm)
             self.assertEqual(value, '')
-    
+
     def test_destroy_user_plain(self):
         """ test destroy command on User """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -603,7 +606,7 @@ class TestDestroyCommand(unittest.TestCase):
             obj = json.load(fp)
             u = obj.get(f"User.{base_id}")
             self.assertIsNone(u)
-            self.assertEqual( value, '')
+            self.assertEqual(value, '')
 
     def test_destroy_state_plain(self):
         """ test destroy command on State """
@@ -688,7 +691,7 @@ class TestDestroyCommand(unittest.TestCase):
             bm = obj.get(f"BaseModel.{base_id}")
             self.assertIsNone(bm)
             self.assertEqual(value, '')
-    
+
     def test_destroy_user(self):
         """ test destroy command on User """
         with patch('sys.stdout', new=StringIO()) as f:

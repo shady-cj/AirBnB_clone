@@ -74,7 +74,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.id, new_place.id)
         self.assertEqual(place.created_at, new_place.created_at)
         self.assertEqual(place.updated_at, new_place.updated_at)
-    
+
     def test_place_storage(self):
         """ Test Place Storage """
         pl = Place()
