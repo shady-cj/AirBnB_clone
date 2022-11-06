@@ -57,6 +57,9 @@ Requirements:
 * Use inline styling for all your tags
 
 
+**Files** - 1-index.html
+
+
 
 ### 1. Head styling
 
@@ -70,4 +73,22 @@ Requirements:
 * You must use the style tag in the head tag
 * The layout must be exactly the same as 0-index.html
 
-*File* - 1-index.html
+**File** - 1-index.html
+
+
+### 2. CSS files
+
+Write an HTML page that displays a header and a footer by using CSS files (same as 1-index.html)
+
+Requirements:
+
+* You must use the header and footer tags
+* No inline styling
+* You must have 3 CSS files:
+* styles/2-common.css: for global style (i.e. the body style)
+* styles/2-header.css: for header style
+* styles/2-footer.css: for footer style
+* The layout must be exactly the same as 1-index.html
+
+
+**Files**: 2-index.html, styles/2-common.css, styles/2-header.css, styles/2-footer.css
