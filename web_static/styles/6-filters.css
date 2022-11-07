@@ -65,6 +65,8 @@
     left: 0;
     top: 100%;
     background-color: #FAFAFA;
+    z-index: 2;
+    box-sizing: border-box;
     width: 100%;
     border: 1px solid #DDDDDD;
 }

@@ -1,9 +1,13 @@
 body {
+    min-height: 100vh;
+    position: relative;
     margin: 0;
     padding: 0;
+    padding-bottom: 40px;
     color: #484848;
     font-size: 14px;
     font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .container {
