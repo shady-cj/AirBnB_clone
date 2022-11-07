@@ -221,3 +221,44 @@ Requirements:
 	* styles/6-filters.css: for the filters style
 
 **Files**: 6-index.html, styles/4-common.css, styles/3-header.css, styles/3-footer.css, styles/6-filters.css, images/
+
+
+### 7. Display results
+
+Write an HTML page that displays a header, footer, a filters box with dropdown and results.
+
+Layout: (based on 6-index.html)
+
+* Add Places section:
+	* tag: section
+	* classname: places
+	* same level as the filters section, inside .container
+	* contains a title:
+		* tag: h1
+		* text: Places
+		* align in the top left
+		* font size: 30px
+	* contains multiple “Places” as listing (horizontal or vertical) describe by:
+		* tag: article
+		* width: 390px
+		* padding and margin 20px
+		* border #FF5A5F 1px with radius 4px
+		* contains the place name:
+		* tag: h2
+		* font size: 30px
+		* center horizontally
+Requirements:
+
+* You must use: header, footer, section, article, button, h1, h2, h3, h4, ul, li tags
+* No inline style
+* You are not allowed to use the img tag
+* You are not allowed to use the style tag in the head tag
+* All images must be stored in the images folder
+* You must have 5 CSS files:
+	* styles/4-common.css: for the global style (i.e. body and .container styles)
+	* styles/3-header.css: for the header style
+	* styles/3-footer.css: for footer style
+	* styles/6-filters.css: for the filters style
+	* styles/7-places.css: for the places style
+
+**File**: 7-index.html, styles/4-common.css, styles/3-header.css, styles/3-footer.css, styles/6-filters.css, styles/7-places.css, images/
