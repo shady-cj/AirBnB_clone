@@ -338,7 +338,7 @@ Requirements:
 
 
 ### 9. Full details
-#advanced
+
 Write an HTML page that displays a header, footer, a filters box with dropdown and results.
 
 Layout: (based on 8-index.html)
@@ -391,3 +391,12 @@ Requirements:
 	* styles/100-places.css: for the places style
 
 **Files**: 100-index.html, styles/4-common.css, styles/3-header.css, styles/3-footer.css, styles/6-filters.css, styles/100-places.css, images/
+
+
+
+### 10. Flex
+
+Improve the Places section by using Flexible boxes for all Place articles
+
+
+**Files**: 101-index.html, styles/4-common.css, styles/3-header.css, styles/3-footer.css, styles/6-filters.css, styles/101-places.css, images/
