@@ -22,7 +22,6 @@
     text-align: center;
     border-radius: 4px;
     position: relative;
-    top: 0;
 }
 
 .places article h2 {
@@ -170,4 +169,65 @@
 .places article .reviews>ul>li>h3 {
     font-size: 14px;
     margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .places h1 {
+        font-size: 20px;
+        padding: 0;
+    }
+    .places article {
+        flex-basis: 100%;
+        width: 100%;
+        margin: 10px 0;
+    }
+    .places article h2 {
+        font-size: 20px;
+    }
+    .places article .price_by_night {
+        font-size: 20px;
+        height: 40px;
+        min-width: 40px;
+        line-height: 40px;
+    }
+    .places article .information {
+        height: 60px;
+        margin-top: 70px;
+    }
+    .information>div {
+        background-size: 40%;
+    }
+    .information>div>p,
+    .places article .users>p,
+    .places article .description>p {
+        font-size: 12px;
+    }
+    .places article .amenities {
+        margin-top: 30px;
+    }
+    .places article .amenities>h2 {
+        font-size: 14px;
+    }
+    .places article .amenities>ul>li {
+        margin: 9px 0;
+        padding: 9px 0;
+    }
+    .places article .amenities>ul>li span {
+        font-size: 11px;
+    }
+    .places article .amenities>ul>li span {
+        top: 4px;
+    }
+    .places article .reviews {
+        margin-top: 30px;
+    }
+    .places article .reviews>h2 {
+        font-size: 14px;
+    }
+    .places article .reviews>ul>li>p {
+        font-size: 11px;
+    }
+    .places article .reviews>ul>li>h3 {
+        font-size: 12px;
+    }
 }

@@ -1,0 +1,23 @@
+header {
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+header .hbnb-logo {
+    background-image: url('../images/hbnb-logo.png');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin-left: 20px;
+}
+
+@media (max-width: 600px) {
+    header {
+        height: 50px;
+    }
+    header .hbnb-logo {
+        transform: scale(0.7) translateX(-80px);
+    }
+}
