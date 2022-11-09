@@ -400,3 +400,17 @@ Improve the Places section by using Flexible boxes for all Place articles
 
 
 **Files**: 101-index.html, styles/4-common.css, styles/3-header.css, styles/3-footer.css, styles/6-filters.css, styles/101-places.css, images/
+
+
+
+
+### 11. Responsive design
+
+Improve the page by adding responsive design to display correctly in mobile or small screens.
+
+Examples:
+
+no horizontal scrolling
+redesign search bar depending of the width
+etc.
+**File**: 102-index.html, styles/102-common.css, styles/102-header.css, styles/102-footer.css, styles/102-filters.css, styles/102-places.css, images/
